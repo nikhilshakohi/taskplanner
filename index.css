@@ -1,0 +1,299 @@
+/*Overall*/
+html{
+	font-family: Verdana;
+	text-align: center;justify-content: center;
+	margin: auto;padding: auto;
+	scroll-behavior: smooth;overflow-y: overlay;/*for scrollbar absolute positioning*/
+}
+body{
+	margin: 0;
+	background-color: gainsboro;
+	transition: all 0.5s ;
+}
+a{text-decoration: none;}
+h1,h2,h3,h4,h5,h6{font-weight: 500;}
+input, textarea, select{
+	animation: fade 1s ease-in-out;
+	background: rgba(220, 220, 220, 1.0);opacity: 0.7;
+	margin: 5px;padding: 10px;margin-left: auto;margin-right: auto;
+	border: none;outline: none;
+	border-radius: 10px;
+	transition: all 0.15s;
+	font-size: medium;
+	font-family: inherit;
+}
+input:focus, textarea:focus, select:focus{opacity: 1;}
+textarea{
+	font-family: Verdana;
+	width: 80%;height: 20%;
+}
+.fade{animation: fade 0.5s ease-in-out;}
+.flexDisplay{display: flex;justify-content: center;align-items: center;align-content: center;flex-wrap: wrap;}
+.inlineDisplay{display: inline;}
+.CheckBox{cursor: pointer;}
+::-webkit-scrollbar{width: 10px;border-radius: 10px;}
+::-webkit-scrollbar-thumb{background: rgba(170,90,220,1);}
+::-webkit-scrollbar-track{background: rgba(200,200,200,0.7);}
+::-webkit-scrollbar-thumb:hover{background: rgba(70,50,120,1);}
+.basicButton,.basicButtonOuter,.redButton,.redButtonOuter,.greenButton,.greenButtonOuter{
+	border: none;
+	font-size: medium;
+	color: white;
+	padding: 10px;border-radius: 10px;margin: 5px;
+	width: 100px;
+	cursor: pointer;
+	background-position: center;
+	transition: background 0.3s;
+}
+.basicButton:hover,.basicButtonOuter:hover,.redButton:hover,.redButtonOuter:hover,.greenButton:hover,.greenButtonOuter:hover{
+	background: gray radial-gradient(circle, transparent 1%, gray 1%) center/20000%;
+}
+.basicButton:active,.basicButtonOuter:active,.redButton:active,.redButtonOuter:active,.greenButton:active,.greenButtonOuter:active{
+	background-color: grey;
+	background-size: 1%;
+	transition: background 0s;
+}
+.basicButton{background-color: mediumpurple;border: 1px solid mediumpurple;}
+.basicButtonOuter{border: 1px solid mediumpurple;color: black;}
+.redButton{background-color: indianred;border: 1px solid indianred;}
+.redButtonOuter{background-color: none;border: 1px solid indianred;color: black;}
+.greenButton{background-color: forestgreen;border: 1px solid forestgreen;}
+.greenButtonOuter{background-color: none;border: 1px solid forestgreen;color: black;}
+.basicButton:hover{background-color: rebeccapurple;}
+.basicButtonOuter:hover{background-color: rebeccapurple;color: white;}
+.redButton:hover{background-color: darkred;}
+.redButtonOuter:hover{background-color: darkred;color: white;}
+.greenButton:hover{background-color: darkgreen;}
+.greenButtonOuter:hover{background-color: darkgreen;color: white;}
+.smallButton{padding: 5px;width: auto;}
+.headingName{font-size: x-large;margin: auto;}
+.subHeadingName{font-size: large;margin: auto;}
+.errorMessage{color: red;animation: shake 0.5s ease-in-out;position: relative;}
+.successMessage{color: green;animation: fade 0.7s ease-in-out;}
+.bufferMessage{color: blue;animation: fade 0.7s ease-in-out;}
+.loaderButton{
+	height: 20px;width: 20px;
+	border: 2px solid white;border-top: 2px solid grey;border-radius: 50%;
+	margin-left: auto;margin-right: auto;
+	animation: rotate 0.5s linear infinite;
+}
+.sideHeading{opacity: 0.6;}
+
+/*Index Page*/
+#header{
+	display: flex;justify-content: space-between;
+	padding: 10px;vertical-align: middle;
+	background-color: purple;color: white;
+	box-shadow: 0 0 10px 3px grey;
+	position: fixed;left: 0;right: 0;
+	z-index: 4;
+}
+#siteName a{color: white;}
+#content{
+	margin-top: 55px;
+}
+#loginDiv,#signupDiv{
+	width: 40%;
+	padding: 30px 10px;margin-left: auto;margin-right: auto;
+	border-radius: 20px;
+	background-color: whitesmoke;
+	animation: rotateCard 1s ease-in-out;
+}
+.loginInputHelper,.signupInputHelper,.addTaskInputHelper{
+	position: absolute;
+	opacity: 0.5;
+	user-select: none;cursor: text;
+	padding: 10px;margin-left: auto;margin-right: auto;
+	left: 0;right: 0;width: 200px;
+	transition: all 0.15s;
+}
+.loginInput,.signupInput,.addTaskInput{
+	position: absolute;
+	left: 0;right: 0;width: 200px;
+}
+.signupInputTitle{width: 75px;}
+#signupDiv{
+	display: none;
+}
+.hrDiv{width: 100%;animation: rotateCard 3s, fade 1.5s;}
+
+/*Home Page*/
+.contentCenter{
+	width: 40%;margin: 10px;
+	padding: 10px;margin-left: auto;margin-right: auto;
+	border-radius: 10px;
+	background-color: whitesmoke;
+	animation: fade 1s ease-in-out;
+}
+#addTask,#expenseManager,#addNotes{
+	position: fixed;
+	font-size: xx-large;
+	cursor: pointer;
+	margin: 20px;padding: 20px;
+	display: flex;
+	justify-content: center;align-content: center;align-items: center;vertical-align: middle;
+	right: 0; bottom: 0;z-index: 3;
+	width: 25px; height: 25px;
+	border-radius: 50%;
+	background-color: rgba(140,60,190,1);color: white;
+	box-shadow: 0 0 5px 1px rgba(0, 0, 0, 1.0);
+}
+#addTask:hover,#expenseManager:hover,#addNotes:hover{background-color: rgba(100,20,150,1);}
+#expenseManager{margin-right: 100px;}
+#expenseManager a{color: white;font-size: x-large;}
+#addNotes{margin-right: 180px;font-size: x-large;color: white;}
+#backgroundDiv{
+	display: none;
+	padding-top: 50px;
+	position: fixed;z-index: 3;
+	background-color: rgba(0, 0, 0, 0.4);
+	left: 0;top: 0;right: 0;bottom: 0;
+}
+.outerDiv{
+	position: fixed;z-index: 4;
+	width: 100%;
+}
+.innerDiv{
+	position: fixed;z-index: 4;
+	top: 10%;left: 25%;
+	width: 50%;max-height: 80%;
+	padding: 20px;border-radius: 10px;
+	background-color: rgba(240, 240, 240, 1.0);
+	overflow: auto;
+	animation: fade 0.5s ease-in-out;
+}
+#addTaskDiv,#checkScheduleDiv,#completeTaskDiv,#notesDiv{display: none;}
+.selectTaskWeek{display: none;}
+.selectTaskWeek[type=CheckBox] + .selectTaskWeekLabel{
+	border-radius: 50px;
+	background-color: silver;
+	padding: 12px 15px;margin: 5px;
+	cursor: pointer;
+}
+.selectTaskWeek[type=CheckBox]:hover + .selectTaskWeekLabel{
+	background-color: mediumpurple;
+}
+.selectTaskWeek[type=CheckBox]:checked + .selectTaskWeekLabel{
+	background-color: blueviolet;
+  	color: white;
+}
+.hideBigScreen{display: none;}
+/*Smile Emoji*/
+.smile{
+	height: 20px;width: 20px;
+	border: 4px solid transparent;border-bottom: 4px solid grey;border-right: 4px solid grey;border-radius: 50%;
+	margin-left: 10px;
+	transform: rotate(45deg);
+	animation: smile 2s linear;z-index: 2;
+}
+.smileDotA,.smileDotB{
+	height: 6px;width: 6px;position: absolute;z-index: 1;
+	border-radius: 50%;
+	background-color: grey;
+	margin-left: 13px;margin-top: -25px;
+}
+.smileDotA{animation: fade 2.8s ease-in-out;}
+.smileDotB{animation: fade 2.9s ease-in-out;transform: translateX(16px);}
+#todaySchedule{
+	padding: 5px;padding-bottom: 100px;
+	animation: fadeFastBring 3s ease-in-out;
+}
+.singleTask{
+	display: flex;vertical-align: middle;align-items: center;align-content: center;
+	padding: 10px;margin: 5px 5px 0px 5px;
+	background-color: rgba(230, 230, 230, 1.0);
+	background-position: center;
+	transition: all 0.5s;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.singleTask:hover{
+	background-color: silver !important;
+	background: rgba(210, 210, 210, 1.0) radial-gradient(circle, transparent 1%, rgba(180, 180, 180, 1.0) 1%) center/20000%;
+}
+.singleTaskBackground:hover{background-color: lightgreen !important;}
+.singleTask:active{
+	background-color: rgba(210, 210, 210, 1.0);
+	background-size: 1%;
+	transition: background 0s;
+}
+.singleTaskTime{width: 20%;text-align: left;justify-content: flex-start;}
+.singleTaskName{text-overflow:ellipsis;white-space:nowrap;width:50%;overflow:hidden;justify-content: center;}
+.singleTaskDone{justify-content: flex-end;width: 30%;text-align: right;}
+.singleTaskDetails{
+	text-align: left;display: none;
+	padding: 10px;margin: 0px 5px 5px 5px;
+	background: rgba(235, 235, 235, 1.0);
+    border-radius: 10px;
+	max-height: 0px;overflow: hidden;
+	transition: max-height 0.2s ease-in;	
+}
+#allTasks,#completedTodayTasks,#contentLoader{display: none;}
+#menuDiv,#menuSubDiv,#menuSubDivOuter{display: flex;justify-content: space-around;background-color: rgba(0, 0, 0, 0);margin: 0 auto;padding: 0;flex-wrap: wrap;}
+#menuDiv{justify-content: flex-end;}
+#menuButton,.smallMobileButton{display: none;}
+.notesContent{
+	padding: 5px;margin-bottom: 20px;
+	max-height: 50vh;
+	overflow: auto;
+}
+.crossed{text-decoration: line-through;}
+.eacNoteDiv{display: flex;justify-content: space-between;align-items: center;align-content: center;}
+
+/*Animations*/
+@keyframes fade{
+	0%{opacity: 0;}
+	50%{opacity: 0;}
+	100%{opacity: 1;}
+}
+@keyframes fadeReverse{
+	0%{opacity: 1;}
+	50%{opacity: 1;}
+	100%{opacity: 0;}	
+}
+@keyframes fadeFastBring{
+	0%{opacity: 0;}
+	80%{opacity: 0;transform: scale3d(0.7, 0.7, 0.7) translate3d(50px, -50px, 0px);}
+	100%{opacity: 1;}
+}
+@keyframes rotateCard{
+	0%{transform: rotateY(180deg);color: transparent;}
+	50%{color: transparent;}
+}
+@keyframes rotate{
+	0%{transform: rotate(0deg);}
+	100%{transform: rotate(360deg);}
+}
+@keyframes shake{
+	0%{left: 3px;}
+	12.5%{left: -3px;}
+	25%{left: 3px;}
+	37.5%{left: -3px;}
+	50%{left: 2px;}
+	62.5%{left: -2px;}
+	75%{left: 1px;}
+	87.5%{left: -1px;}
+	100%{left: 0px;}
+}
+@keyframes smile{
+	0%{transform: rotate(45deg);border: 4px solid whitesmoke;}
+	50%{transform: rotate(45deg);border: 4px solid whitesmoke;}
+	50.1%{transform: rotate(45deg);border-bottom: 4px solid grey;border-right: 4px solid grey;}
+	75%{transform: rotate(360deg);}
+	100%{transform: rotate(720deg);}	
+}
+
+/*Mobile Interface*/
+@media only screen and (max-width: 960px){
+	#loginDiv{width: 90%;}
+	#signupDiv{width: 90%;}
+	#menuButton{display: block;}
+	#menuSubDiv{display: none;}
+	.contentCenter{width: 90%;}
+	.innerDiv{width: 80%;left: 5%;}
+	.smallMobileButton{padding: 5px;width: auto;display: inline;}
+	.hideBigScreen{display: block;}
+	.hideSmallScreen{display: none;}
+	#header{padding: 20px;}
+	#siteName{margin-left: 0;}
+}
