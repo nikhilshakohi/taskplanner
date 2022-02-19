@@ -10,6 +10,7 @@ date_default_timezone_set('Asia/Kolkata');
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta name="theme-color" content="#A020F0">
 	<script type="text/javascript" src="index.js"></script>
 	<title>Task Planner</title>
 </head>
@@ -20,7 +21,7 @@ date_default_timezone_set('Asia/Kolkata');
 		$uid=$_SESSION['id'];
 		$getUsername=mysqli_query($conn,"SELECT * FROM users WHERE id='$uid'");
 		if(mysqli_num_rows($getUsername)>0){
-			while($rowUser=mysqli_fetch_assoc($getUsername)){$currentUsername=$rowUser['username'];}
+			while($rowUser=mysqli_fetch_assoc($getUsername)){$currentUsername=$rowUser['username'];$userGender=$rowUser['gender'];}
 		}
 		echo '<input type="hidden" id="username" value="'.$currentUsername.'">';
 	?>
@@ -35,9 +36,9 @@ date_default_timezone_set('Asia/Kolkata');
 	<div id="addTask" onclick="showAddTask()">+</div>
 	<!--Quick Notes-->
 	<div id="addNotes" onclick="showNotes()">&#x2630;</div>
-	<?php if($currentUsername=='nikhil'){ ?>
+	<?php /* if($currentUsername!='test'){ */?>
 	<div id="expenseManager"><a target="_blank" href="https://expensemanager14911.000webhostapp.com">&#8377;</a></div>
-	<?php }	?>
+	<?php /* }	*/?>
 	<!--Display Later Divs-->
 	<div id="editTaskDiv"></div>
 	<div id="deleteTaskDiv"></div>
@@ -150,8 +151,8 @@ date_default_timezone_set('Asia/Kolkata');
 						if(date('H', time())<12){echo 'Good Morning ';}
 						if((date('H', time())>=12)&&(date('H', time())<16)){echo 'Good Afternoon ';}
 						if((date('H', time())>=16)&&(date('H', time())<24)){echo 'Good Evening ';}
-						if($_SESSION['gender']=='male'){echo'sir ';}
-						else if($_SESSION['gender']=='female'){echo'Madam';}
+						if($userGender=='male'){echo'sir ';}
+						else if($userGender=='female'){echo'madam';}
 					echo '</div>
 					<div>
 						<div class="smile"></div>

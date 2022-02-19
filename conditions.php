@@ -32,11 +32,29 @@ if(isset($_POST['login'])){
 	if(mysqli_num_rows($checkUser)>0){
 		while($rowUser = mysqli_fetch_assoc($checkUser)){
 			$checkPassword = $rowUser['password'];
-			if($checkPassword == $password){
+			$passwordChecked="notVerified";
+			$encID=(149118912*$rowUser['id'])+149118912;
+			if(isset($_COOKIE['userID'])){
+				if($_COOKIE['userID']==$encID){$passwordChecked="verified";}
+				else if($checkPassword == $password){$passwordChecked="verified";}
+				else{$passwordChecked="notVerified";}
+			}else{
+				if($checkPassword == $password){$passwordChecked="verified";}
+				else{$passwordChecked="notVerified";}
+			}
+			if($passwordChecked=="verified"){
 				$_SESSION['id'] = $rowUser['id'];
 				$_SESSION['username'] = $rowUser['username'];
 				$_SESSION['name'] = $rowUser['name'];
 				$_SESSION['gender'] = $rowUser['gender'];
+				if($_SESSION['gender']=='male'){$_SESSION['genderCall'] = 'sir';}
+				else if($_SESSION['gender']=='female'){$_SESSION['genderCall'] = 'madam';}
+				if($_POST['autoLogin']=='enabled'){
+					setcookie('autoLogin','yes',time()+3600*5,'/');
+					setcookie('username',$rowUser['username'],time()+3600*5,'/');
+					$encID=(149118912*$rowUser['id'])+149118912;
+					setcookie('userID',$encID,time()+3600*5,'/');
+				}
 				echo 'loginSuccess';
 				exit();
 			}else{
@@ -60,7 +78,7 @@ if(isset($_POST['addTask'])){
 	$priority = mysqli_real_escape_string($conn,$_POST['priority']);
 	$details = mysqli_real_escape_string($conn,$_POST['details']);
 	$addTask = mysqli_query($conn,"INSERT INTO tasks (username, task, startTime, endTime, startDate, endDate, repeater, priority, details) VALUES ('$username', '$taskName', '$startTime', '$endTime', '$startDate', '$endDate', '$repeater', '$priority', '$details')");
-	echo '<span class="successMessage">Task has been added succesfully sir!</span>
+	echo '<span class="successMessage">Task has been added succesfully '.$_SESSION['genderCall'].'!</span>
 	-period-';
 	$currentUsername=$username;
 	$todayDate=date('Y-m-d',time());
@@ -175,7 +193,7 @@ if(isset($_POST['confirmEditTask'])){
 	$priority = mysqli_real_escape_string($conn,$_POST['priority']);
 	$details = mysqli_real_escape_string($conn,$_POST['details']);
 	$addTask = mysqli_query($conn,"UPDATE tasks SET task='$taskName', startTime='$startTime', endTime='$endTime', startDate='$startDate', endDate='$endDate', repeater='$repeater', priority='$priority', details='$details' WHERE id='$id'");
-	echo '<span class="successMessage">Task has been Edited succesfully sir!</span>
+	echo '<span class="successMessage">Task has been Edited succesfully '.$_SESSION['genderCall'].'!</span>
 	-period-';
 	$currentUsername=$username;
 	$todayDate=date('Y-m-d',time());
@@ -543,7 +561,7 @@ if(isset($_POST['confirmTaskCompletedPreviously'])){
 			}
 		}
 		if($checkDateAvail==1){
-			echo'AlreadyAddedError-period-<div class="errorMessage">'.date('d-M-Y',strtotime($completedDate)).' was already marked as done sir!</div>';
+			echo'AlreadyAddedError-period-<div class="errorMessage">'.date('d-M-Y',strtotime($completedDate)).' was already marked as done '.$_SESSION['genderCall'].'!</div>';
 		}else if($checkDateAvail==0){
 			$newStatus=$completedDateInTime.'-';
 			if($completedDateInTime>$currentCompletionDate){$newCompletionDate=$completedDateInTime;}
@@ -556,7 +574,7 @@ if(isset($_POST['confirmTaskCompletedPreviously'])){
 			getTasks($conn,$currentUsername,$taskQuery,'todaySchedule');
 		}
 	}else{
-		echo'<div class="errorMessage">Something went fishy sir!</div>';
+		echo'<div class="errorMessage">Something went fishy '.$_SESSION['genderCall'].'!</div>';
 	}
 }
 
@@ -748,7 +766,7 @@ function getTasks($conn,$currentUsername,$taskQuery,$type){
 			echo '<hr><h3>No record of any completed works have been found.</h3>
 			<br><button class="redButtonOuter" onclick="toggleDiv(\''.'todaySchedule'.'\')">CLOSE</button>';
 		}else if($type=='checkSchedule'){
-			echo '<hr><h3>No data has been found on this date sir.</h3>
+			echo '<hr><h3>No data has been found on this date '.$_SESSION['genderCall'].'.</h3>
 			<br><button class="redButtonOuter" onclick="toggleDiv(\''.'todaySchedule'.'\')">CLOSE</button>';
 		}
 	}

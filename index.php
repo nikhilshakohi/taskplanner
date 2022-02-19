@@ -9,13 +9,15 @@ date_default_timezone_set('Asia/Kolkata');
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<meta name="google-site-verification" content="M6Wbpyq5eHZattL1_fqsV8HxSLz8T_U1UlUppkvfLtU" /><!--Google Verification-->
+	<meta name="theme-color" content="#A020F0">
 	<script type="text/javascript" src="index.js"></script>
 	<title>Task Planner</title>
 	<style type="text/css">
 		.basicButton,.basicButtonOuter{animation: fade 1s ease-in-out;}/*Only animate in this page*/
 	</style>
 </head>
-<body onload="focusInput('username')">
+<body onload="focusInput('username');login()">
 	
 	<!--Header-->
 		<div id="header">
@@ -40,7 +42,7 @@ date_default_timezone_set('Asia/Kolkata');
 		if(!isset($_SESSION['id'])){
 		?>
 			<!--Signup Div-->
-			<div id="signupDiv">
+			<form id="signupDiv">
 				<div id="signupArea">
 				<div class="headingName">Let's get Started!</div><hr class="hrDiv"><br><br>
 				<!--Full Name-->
@@ -48,32 +50,32 @@ date_default_timezone_set('Asia/Kolkata');
 					<option value="">Title</option>
 					<option value="male">Mr</option>
 					<option value="female">Ms</option>
-				</select><br><br><br>
-				<input id="fullNameSignupInput" class="signupInput" type="text" onfocus="focusInput('fullNameSignup')" onfocusout="noFocusInput('fullNameSignup')">			
-				<div class="signupInputHelper" id="fullNameSignupHelper" onclick="focusInput('fullNameSignup')">Full Name</div><br><br><br>
+				</select><br><br><br><br>
+				<input id="fullNameSignupInput" class="signupInput" type="text" onfocus="focusInput('fullNameSignup')" onfocusout="noFocusInput('fullNameSignup')" autocomplete>			
+				<div class="signupInputHelper" id="fullNameSignupHelper" onclick="focusInput('fullNameSignup')">Full Name</div><br><br><br><br>
 				<!--Username-->
-				<input id="usernameSignupInput" class="signupInput" type="username" onfocus="focusInput('usernameSignup')" onfocusout="noFocusInput('usernameSignup')">			
-				<div class="signupInputHelper" id="usernameSignupHelper" onclick="focusInput('usernameSignup')">Username</div><br><br><br>
+				<input id="usernameSignupInput" class="signupInput" type="username" onfocus="focusInput('usernameSignup')" onfocusout="noFocusInput('usernameSignup')" autocomplete>			
+				<div class="signupInputHelper" id="usernameSignupHelper" onclick="focusInput('usernameSignup')">Username</div><br><br><br><br>
 				<!--Email-->
-				<input id="emailSignupInput" class="signupInput" type="email" onfocus="focusInput('emailSignup')" onfocusout="noFocusInput('emailSignup')">			
-				<div class="signupInputHelper" id="emailSignupHelper" onclick="focusInput('emailSignup')">E-Mail</div><br><br><br>
+				<input id="emailSignupInput" class="signupInput" type="email" onfocus="focusInput('emailSignup')" onfocusout="noFocusInput('emailSignup')" autocomplete>			
+				<div class="signupInputHelper" id="emailSignupHelper" onclick="focusInput('emailSignup')">E-Mail</div><br><br><br><br>
 				<!--Password-->
-				<input id="passwordSignupInput" class="signupInput" type="password" onfocus="focusInput('passwordSignup')" onfocusout="noFocusInput('passwordSignup')">			
-				<div class="signupInputHelper" id="passwordSignupHelper" onclick="focusInput('passwordSignup')">Password</div><br><br><br>
+				<input id="passwordSignupInput" class="signupInput" type="password" onfocus="focusInput('passwordSignup')" onfocusout="noFocusInput('passwordSignup')" autocomplete>			
+				<div class="signupInputHelper" id="passwordSignupHelper" onclick="focusInput('passwordSignup')">Password</div>
+				<input class="CheckBox noDisplay" type="checkBox" id="showSignupPasswordBox" onclick="showPassword('Signup')">
+				<label class="CheckBox showPasswordCheckLabel" for="showSignupPasswordBox">&#128065;</label>
+				<br><br><br><br>
 				<!--Confirm Password-->
-				<input id="confirmpasswordSignupInput" class="signupInput" type="password" onfocus="focusInput('confirmpasswordSignup')" onfocusout="noFocusInput('confirmpasswordSignup')">			
+				<input id="confirmpasswordSignupInput" class="signupInput" type="password" onfocus="focusInput('confirmpasswordSignup')" onfocusout="noFocusInput('confirmpasswordSignup')" autocomplete>			
 				<div class="signupInputHelper" id="confirmpasswordSignupHelper" onclick="focusInput('confirmpasswordSignup')">Re-Enter Password</div>
 				<br><br><br>
-				<input class="CheckBox" type="checkBox" id="showSignupPasswordBox" onclick="showPassword('Signup')">
-				<label class="CheckBox" for="showSignupPasswordBox">Show Password</label>
-				<br><br>
 				<div id="signupErrorMessage"></div>
 				<button id="signupButton" class="basicButton" onclick="signup()">SIGNUP</button><br>
 				</div>
-				<button class="basicButtonOuter" onclick="toggleSignIn('login')">LOGIN</button><br><br><br>
-			</div>
+				<button class="basicButtonOuter" onclick="toggleSignIn('login')">LOGIN</button><br><br><br><br><br>
+			</form>
 			<!--Login Div-->
-			<div id="loginDiv">
+			<form id="loginDiv">
 				<div id="loginArea">
 				<div class="headingName">
 					<?php 
@@ -83,20 +85,35 @@ date_default_timezone_set('Asia/Kolkata');
 					?>
 				</div><hr class="hrDiv"><br><br>
 				<!--Username-->
-				<input id="usernameLoginInput" class="loginInput" type="username" onfocus="focusInput('usernameLogin')" onfocusout="noFocusInput('usernameLogin')" autofocus>
+				<input id="usernameLoginInput" class="loginInput" type="username" onfocus="focusInput('usernameLogin')" onfocusout="noFocusInput('usernameLogin')" autofocus autocomplete
+				<?php
+				//Check for Cookies
+				if(isset($_COOKIE['autoLogin'])){
+					if($_COOKIE['autoLogin']!='No'){echo ' value="'.$_COOKIE['username'].'" ';}
+					else{echo ' ';}
+				}else{echo ' ';}
+				?>>
 				<div class="loginInputHelper" id="usernameLoginHelper" onclick="focusInput('usernameLogin')">Username / E-Mail</div><br><br><br>
 				<!--Password-->
-				<input id="passwordLoginInput" class="loginInput" type="password" onfocus="focusInput('passwordLogin')" onfocusout="noFocusInput('passwordLogin')">			
+				<input id="passwordLoginInput" class="loginInput" type="password" onfocus="focusInput('passwordLogin')" onfocusout="noFocusInput('passwordLogin')" autocomplete 
+				<?php
+				//Check for Cookies
+				if(isset($_COOKIE['autoLogin'])){
+					if($_COOKIE['autoLogin']!='No'){echo ' value="'.$_COOKIE['userID'].'" ';}
+					else{echo ' ';}
+				}else{echo ' ';}
+				?> >			
 				<div class="loginInputHelper" id="passwordLoginHelper" onclick="focusInput('passwordLogin')">Password</div>
+				<input class="CheckBox noDisplay" type="checkBox" id="showLoginPasswordBox" onclick="showPassword('Login')">
+				<label class="CheckBox showPasswordCheckLabel" for="showLoginPasswordBox">&#128065;</label>
 				<br><br><br>
-				<input class="CheckBox" type="checkBox" id="showLoginPasswordBox" onclick="showPassword('Login')">
-				<label class="CheckBox" for="showLoginPasswordBox">Show Password</label>
-				<br><br>
+				<input type="checkBox" id="rememberMeLoginBox" checked>
+				<label for="rememberMeLoginBox">Remember Me</label><br>
 				<div id="loginErrorMessage"></div>
 				<button id="loginButton" class="basicButton" onclick="login()">LOGIN</button><br>
 				</div>
 				<button class="basicButtonOuter" onclick="toggleSignIn('signup')">SIGNUP</button><br><br><br>
-			</div>
+			</form>
 
 		<!--Check Session Closer-->
 		<?php 

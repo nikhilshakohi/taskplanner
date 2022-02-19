@@ -115,6 +115,7 @@ function login(){
 	var password = document.getElementById("passwordLoginInput").value;
 	document.getElementById("loginButton").innerHTML = "<div class='loaderButton'></div>";
 	document.getElementById("loginErrorMessage").innerHTML = "";/*To remove any previous error Messages*/
+	if(document.getElementById("rememberMeLoginBox").checked!=false){var autoLogin = 'enabled';}else{var autoLogin = 'disabled';}
 	/*Validation*/
 	if(username == '' || password == ''){ /*Empty Fields*/
 		document.getElementById("loginErrorMessage").innerHTML = "<span class='errorMessage'>Please Fill in all the fields</span>";
@@ -122,7 +123,7 @@ function login(){
 		/*AJAX Functionality*/
 		/*Declare variables*/
 		var login = "RandomInput";
-		var data = "login="+login+"&username="+username+"&password="+password;
+		var data = "login="+login+"&username="+username+"&password="+password+"&autoLogin="+autoLogin;
 		/*Declare XML*/
 		if(window.XMLHttpRequest){var xhr = new XMLHttpRequest();}
 		else if(window.ActiveXObject){var xhr = new ActiveXObject("Microsoft.XMLHTTP");}
@@ -156,7 +157,7 @@ function showAddTask(){
 	if(h!=23){var nexth=h+1;}else{var nexth=0;}
 	var nh=checkTime(nexth);
 
-	document.getElementById("startDate").value=yr+'-'+newMnths+'-'+dte;
+	//document.getElementById("startDate").value=dte+'-'+newMnths+'-'+yr;
 	/*document.getElementById("endDate").value=yr+'-'+newMnths+'-'+dte;*/
 	document.getElementById("startTime").value=h+':'+m;
 	document.getElementById("endTime").value=nh+':'+m;
@@ -566,7 +567,7 @@ function confirmDeleteTask(id){
 					setTimeout(function(){document.getElementById("todayTaskDetails"+id).style.display="none";},1000);
 					document.getElementById("todayTask"+id).style.pointerEvents="none";
 					setTimeout(function(){document.getElementById("todayTask"+id).innerHTML="<div class='loaderButton'></div>";},1000);
-					setTimeout(function(){document.getElementById("todayTask"+id).style.backgroundColor="mediumvioletred";document.getElementById("todayTask"+id).innerHTML="<div style='margin-left:auto;margin-right:auto;animation: fadeReverse 2s ease-in-out;color:white'>Task has been Removed successfully sir!</div>";},2000);
+					setTimeout(function(){document.getElementById("todayTask"+id).style.backgroundColor="mediumvioletred";document.getElementById("todayTask"+id).innerHTML="<div style='margin-left:auto;margin-right:auto;animation: fadeReverse 2s ease-in-out;color:white'>Task has been Removed successfully boss!</div>";},2000);
 					setTimeout(function(){document.getElementById("todaySchedule").innerHTML=eachResponse[1];},4000);
 				}
 			}
@@ -598,7 +599,7 @@ function redoTask(id){
 					document.getElementById("todayTask"+id).innerHTML="<div class='loaderButton'></div>";
 					document.getElementById("todayTask"+id).style.pointerEvents="none";
 					document.getElementById("todayTask"+id).classList.add("singleTaskBackground");
-					setTimeout(function(){document.getElementById("todayTask"+id).style.backgroundColor="lightgreen";document.getElementById("todayTask"+id).innerHTML="<div style='margin-left:auto;margin-right:auto;animation: fadeReverse 2s ease-in-out'>Task has been Re-Scheduled succesfully sir!</div>";},1000);
+					setTimeout(function(){document.getElementById("todayTask"+id).style.backgroundColor="lightgreen";document.getElementById("todayTask"+id).innerHTML="<div style='margin-left:auto;margin-right:auto;animation: fadeReverse 2s ease-in-out'>Task has been Re-Scheduled succesfully boss!</div>";},1000);
 					setTimeout(function(){document.getElementById("todaySchedule").innerHTML="<div class='loaderButton'></div>";},3000);
 					setTimeout(function(){document.getElementById("todaySchedule").innerHTML=eachResponse[1];},3000);
 				}
@@ -692,7 +693,7 @@ function confirmEditProfileDetails(type, id){
 			if(xhr.readyState == 4){
 				if(xhr.status == 200){
 					if(this.responseText == 'updateDone'){
-						document.getElementById("editProfileStatus").innerHTML = "<span class = 'successMessage'>Details have been edited succesfully sir</span>";	
+						document.getElementById("editProfileStatus").innerHTML = "<span class = 'successMessage'>Details have been edited succesfully boss!</span>";	
 						setTimeout(function(){document.getElementById("editProfileStatus").innerHTML = "<span class = 'successMessage'>Edited Successfully</span><div class = 'loaderButton'></div>";},400);
 						setTimeout(function(){document.getElementById("profileDiv").innerHTML = "";document.getElementById("backgroundDiv").style.display = "none";},1000);
 						if(type == 'username'){
@@ -807,7 +808,7 @@ function addNote(){
 						document.getElementById("notesErrorMessage").innerHTML="<div class='successMessage'>Note taken Boss.</div>";
 						showNotes();
 					}else{
-						document.getElementById("notesErrorMessage").innerHTML="<div class='errorMessage'>Something seems to be wrong sir.</div>";
+						document.getElementById("notesErrorMessage").innerHTML="<div class='errorMessage'>Something seems to be wrong boss.</div>";
 						showNotes();
 					}
 					setTimeout(function(){document.getElementById("notesErrorMessage").innerHTML="";},3000);
