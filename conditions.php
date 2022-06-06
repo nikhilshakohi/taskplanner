@@ -640,6 +640,8 @@ function getTasks($conn,$currentUsername,$taskQuery,$type){
 				<div class="singleTaskName">'.ucwords($rowTask['task']).'</div>
 				<div class="singleTaskDone">';
 					if(strpos($rowTask['repeater'], $todayDayNumber)){echo'<span class="sideHeading" title="This task repeats Daily">&#8635;</span>';}
+					//To check if this task was completed on this date
+					if(strpos($rowTask['completionDates'], $todayDateCheck)){echo'<span class="completedIcon" title="This task was completed on this date">&check;</span>';}
 					if($type!='checkSchedule'){
 						if($type!='allTasks'){
 							if($type=='completedTodayTasks'){
@@ -722,14 +724,15 @@ function getTasks($conn,$currentUsername,$taskQuery,$type){
 					if($rowTask['completionDates']!=''){echo '
 					<tr>
 						<td id="taskHistoryCell'.$rowTask['id'].'"><span class="sideHeading">Task History: </span></td>
-						<td>
-							<div>
-								<button id="showTaskHistoryButton'.$rowTask['id'].'" class="smallButton basicButtonOuter" onclick="showTaskDetailsHistory(\''.$rowTask['id'].'\')">Show History</button>
+						<td>';
+							$getDates=explode('-', $rowTask['completionDates']);
+							$getDatesCount=count($getDates)-1;
+							echo'<div>
+								<button id="showTaskHistoryButton'.$rowTask['id'].'" class="smallButton basicButtonOuter" onclick="showTaskDetailsHistory(\''.$rowTask['id'].'\')">Show History</button> 
+								<span> (Count = '.$getDatesCount.')</span>
 							</div>
 							<div id="showTaskDetailsHistory'.$rowTask['id'].'" style="display:none">
 								Task was previously completed on: <br>';
-								$getDates=explode('-', $rowTask['completionDates']);
-								$getDatesCount=count($getDates)-1;
 								for($i=$getDatesCount-1;$i>=0;$i--){
 									$historyCompletedYr=substr($getDates[$i], 0, 4);
 									$historyCompletedMt=substr($getDates[$i], 4, 2);

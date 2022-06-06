@@ -79,6 +79,7 @@ textarea{
 	animation: rotate 0.5s linear infinite;
 }
 .sideHeading{opacity: 0.6;}
+.completedIcon{color: green;padding-left: 5px;}
 
 /*Index Page*/
 #header{
@@ -134,7 +135,7 @@ textarea{
 	margin: 20px;padding: 20px;
 	display: flex;
 	justify-content: center;align-content: center;align-items: center;vertical-align: middle;
-	right: 0; bottom: 0;z-index: 3;
+	right: 0; bottom: 25px;z-index: 3;
 	width: 25px; height: 25px;
 	border-radius: 50%;
 	background-color: rgba(140,60,190,1);color: white;
