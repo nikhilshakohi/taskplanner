@@ -154,7 +154,7 @@ function showAddTask(){
 	document.getElementById("addTaskNameInput").focus();
 	var t = new Date(); var hrs = t.getHours(); var mnts = t.getMinutes(); var sec = t.getSeconds();var dys=t.getDay();var yr=t.getFullYear();var mnths=t.getMonth();var newMnths=mnths+1;var dte=checkTime(t.getDate());
 	var h = checkTime(hrs);var m = checkTime(mnts);var se = checkTime(sec);var mnthschecktime=checkTime(mnths+1);
-	if(h!=23){var nexth=h+1;}else{var nexth=0;}
+	if(h!=23){var nexth=parseInt(h)+1;}else{var nexth=0;}
 	var nh=checkTime(nexth);
 
 	//document.getElementById("startDate").value=dte+'-'+newMnths+'-'+yr;
@@ -253,7 +253,11 @@ function addTask(){
 		document.getElementById("startDate").style.border="1px solid red";document.getElementById("startDate").focus();
 		document.getElementById("endDate").style.border="1px solid red";
 	}else{
-		if(endDate==''){endDate='0000-00-00';repeater='1234567';/*To repeat task till completed;*/}
+		if(endDate==''){
+			endDate='0000-00-00';
+			if(repeater!=''&&repeater!='8'){}/*To repeat task till completed;*/
+			else{repeater='1234567';}
+		}
 		/*AJAX Functionality*/
 		/*Declare variables*/
 		var addTask = "RandomInput";
@@ -280,7 +284,7 @@ function addTask(){
 					document.getElementById("addTaskNameInput").value='';
 					document.getElementById("startTime").value='';
 					document.getElementById("endTime").value='';
-					document.getElementById("startDate").value='';
+					document.getElementById("startDate").value=startDate;
 					document.getElementById("endDate").value='';
 					document.getElementById("addTaskPriorityInput").value='';
 					document.getElementById("addTaskDetailsInput").value='';
